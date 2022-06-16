@@ -19,19 +19,34 @@ on your machine.
 
 ## Compilation and Running
 
-Steps to compile the Orbslam3 on the sample dataset:
+Steps to compile the Orbslam3 on the sample dataset and this leaves a running
+container which links to out of the container to the local filesystem. The
+actual ORB_SLAM3 software (about 1.5GB) lives outside the build image:
 
 ```sh
+# download and unzip the test dataset
 ./download_dataset_sample.sh
-# if you have just a cpu
+# if you have just a cpu this will download an image and 
 build_container_cpu.sh
 # if you have nvidia gpu
 build_container_cuda.sh
 ```
 
-Now you should see ORB_SLAM3 is compiling.
+Now you should see ORB_SLAM3 is compiling and it will eventually leave a
+detached running container connects to ./ORB_SLAM3 directory in this drive.
+This container must be connected via X11 to your host machine, so if you have
+issues look at the ./build_container scripts and make sure that X11 works by
+ensuring that it works by testing with xeyes:
 
-To run a test example:
+```sh
+docker exec -it orbslam3 bash
+apt-get install x11-apps
+xeyes
+```
+
+To run a test example exec into the running container and run it which will
+start ORB_SLAM3 with the example data and then use X11 to display the
+interfaceo on your host machine:
 
 ```sh
 docker exec -it orbslam3 bash
