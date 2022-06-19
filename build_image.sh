@@ -9,6 +9,9 @@ IMAGE="${IMAGE:-orbslam3}"
 DOCKERFILE="${DOCKERFILE:-Dockerfile}"
 TYPE="${TYPE:-cuda}"
 TAG="${TAG:-ubuntu_18_melodic}"
+PLATFORM="${PLATFORM:-linux/amd64}"
+# if you want multiplate dockerhub orgs add the following
+#PLATFORM="${PLATFORM:-linux/amd64,linux/arm64}"
 OPTIND=1
 while getopts "ht:" opt; do
 	case "$opt" in
@@ -43,7 +46,7 @@ echo "$SCRIPTNAME: build $DOCKERFILE into $DOCKERNAME"
 
 if [[ $OSTYPE =~ darwin ]]; then
 	echo "$SCRIPTNAME: OSX using buildx for multiplatform and will push"
-	docker buildx build --push --platform linux/amd64,linux/arm64 \
+	docker buildx build --push --platform "$PLATFORM" \
 		-t "$DOCKERNAME" -f "$DOCKERFILE" .
 else
 	# shellcheck disable=SC2086
