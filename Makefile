@@ -31,6 +31,11 @@ container:
 container_cuda:
 	ORG="$(ORG)" IMAGE="$(IMAGE)" "./$(BUILD_CONTAINER)_cuda.sh"
 
+## exec: enter the running cpu build container and run ROS
+.PHONY: exec
+exec:
+	docker exec -it "$(IMAGE)" bash
+
 ## test: test the library
 .PHONY: test
 test:

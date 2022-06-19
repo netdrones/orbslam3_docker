@@ -6,9 +6,9 @@
 set -ueo pipefail && SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 SCRIPT_DIR="${SCRIPT_DIR:-"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"}"
 # do not build the container just exec it by default
-BUILD="${BUILD:-false}"
+BUILD="${BUILD:-true}"
 # set remove the build artifacts
-REMOVE="${REMOVE:-false}"
+REMOVE="${REMOVE:-true}"
 # set restart if you want to restart the container
 RESTART="${RESTART:-true}"
 
@@ -73,11 +73,10 @@ fi
 
 echo "$SCRIPTNAME: export REMOVE=true to remove build artifacts"
 if $REMOVE; then
-	R
 	echo "$SCRIPTNAME: Removing build artifacts"
-	if [[ -d "ORB_SLAM3" ]]; then
-		sudo rm -rf ORB_SLAM3
-		mkdir ORB_SLAM3
+	if [[ -d ORB_SLAM3 ]]; then
+		rm -rf ORB_SLAM3
+		mkdir -p ORB_SLAM3
 	fi
 fi
 
