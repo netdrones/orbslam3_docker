@@ -10,6 +10,14 @@ IMAGE ?= orbslam3
 DOCKERFILE ?= Dockerfile_rich
 BUILD_CONTAINER ?= build_container_rich
 
+## download: Download of the dataset
+# only if MH01.zip is not present and MH01 not unzipped
+.PHONY: download
+download: Datasets/EuRoC/MH01
+
+Datasets/EuRoC/MH01: Datasets/EuRoC/MH01.zip
+	./download_dataset_sample.sh
+
 ## build: creates the build container for cpu
 .PHONY: build
 build:
