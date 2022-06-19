@@ -7,7 +7,7 @@ TAG ?= 0.9
 # using github container registery
 ORG ?= ghcr.io/netdrones
 IMAGE ?= orbslam3
-DOCKEFILE ?= Dockerfile
+DOCKEFILE ?= Dockerfile_cpu
 
 ## build: creates the build container
 .PHONY: build
@@ -17,7 +17,7 @@ build:
 ## container: starts build container to create artifacts in host
 .PHONY: container
 container:
-	ORG="$(ORG)" IMAGE="$(IMAGE)" ./build_container_rich.sh
+	ORG="$(ORG)" IMAGE="$(IMAGE)" ./build_container_cpu_rich.sh
 
 ## test: test the library
 .PHONY: test
