@@ -5,11 +5,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 # use xeyes from x11-apps for debugging
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        gnupg2=2.2.4-1ubuntu1.4 \
-        curl=7.58.0-2ubuntu3.16 \
+        gnupg2 \
+        curl  \
         lsb-core=9.20170808ubuntu1 \
-        vim=2:8.0.1453-1ubuntu1.4 \
-        python-pip=9.0.1-2 \
+        vim \
+        python-pip \
         libpng16-16=1.6.34-1 \
         libjpeg-turbo8=1.5.2-0ubuntu5 \
         libtiff5=4.0.9-5 \
@@ -23,7 +23,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > "/et
     apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key "C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654" && \
     curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | apt-key add - && \
     apt-get update && apt-get install -y --no-install-recommends \
-        melodic-desktop \
+        ros-melodic-desktop \
         python-rosdep && \
     rosdep init && \
     rosdep update && \
@@ -47,7 +47,7 @@ RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bash_profile
 
 # OpenCV dependencies
 # Pangolin dependencies
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
         # Base tools
         cmake \
         build-essential \
@@ -74,7 +74,7 @@ RUN curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add 
     rm -rf /var/lib/apt/lists/*
 
 # Build OpenCV (3.0 or higher should be fine)
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
         python3-dev python3-numpy \
         python-dev python-numpy \
         libavcodec-dev libavformat-dev libswscale-dev \
@@ -93,7 +93,7 @@ RUN    rm -rf opencv
 
 # # Build Pangolin
 WORKDIR /tmp
-RUN git clone -b 0.6 https://github.com/stevenlovegrove/Pangolin
+RUN git clone https://github.com/stevenlovegrove/Pangolin
 WORKDIR /tmp/Pangolin/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-std=c++11 .. && \
     make "-j$(nproc)" && make install

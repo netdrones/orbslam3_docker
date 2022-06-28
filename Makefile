@@ -14,6 +14,9 @@ BUILD_CONTAINER ?= build_container
 ## all: download data, build container, run image and build artifacts
 all: download build container exec
 
+.PHONY: install
+install: build_cuda container_cuda
+
 ## download: Download of the dataset
 # only if MH01.zip is not present and MH01 not unzipped
 .PHONY: download

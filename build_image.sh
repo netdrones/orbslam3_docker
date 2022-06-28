@@ -3,8 +3,7 @@ set -ueo pipefail && SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 SCRIPT_DIR="${SCRIPT_DIR:-"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"}"
 
 # default for docker hub if you want to use github container registry add
-# ORG="${ORG:-ghcr.io/netdrones}"
-ORG="${ORG:-jahaniam}"
+ORG="${ORG:-ghcr.io/netdrones}"
 IMAGE="${IMAGE:-orbslam3}"
 DOCKERFILE="${DOCKERFILE:-Dockerfile}"
 TYPE="${TYPE:-cuda}"
@@ -50,5 +49,5 @@ if [[ $OSTYPE =~ darwin ]]; then
 		-t "$DOCKERNAME" -f "$DOCKERFILE" .
 else
 	# shellcheck disable=SC2086
-	docker build -t "$DOCKERNAME" -f "$DOCKERFILE".
+	docker build -t "$DOCKERNAME" .
 fi
