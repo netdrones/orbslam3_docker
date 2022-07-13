@@ -85,7 +85,7 @@ interfaceo on your host machine:
 
 ```sh
 docker exec -it orbslam3 bash
-cd /ORB_SLAM3/Examples &&. /euroc_examples.sh
+cd /ORB_SLAM3/Examples && ./euroc_examples.sh
 ```
 
 ## Running on MacOS
