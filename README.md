@@ -34,7 +34,7 @@ for a RealSense cameras
 
 Steps to compile the Orbslam3 on the sample dataset and this leaves a running
 container which links to out of the container to the local filesystem. The
-actual ORB_SLAM3 software (about 1.5GB) lives outside the build image:
+actual ORB_SLAM3 dataset (about 1.5GB) lives outside the build image:
 
 Note that the original forked repo used two different images for the base. The
 first used Turlucode builds for the cpu, but used it's own custom Melodic
@@ -48,10 +48,11 @@ cpu.
 # build the image once for the nVidia gpu
 ./build_image.sh
 # build the image once for cpu only build the turlucode image
-cd ros_docker_gui
+cd ros-docker-gui
 make cpu_ros_melodic
 # this will build a local image turlucode/ros_melodice:cpu
 # this is because these imaes are not pushed to docker hub
+cd ..
 ./build_image.sh -t cpu
 
 # then everytime you run
